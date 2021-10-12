@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+KduCQvC/Y1ONgKYVb6PvosjQXY9xp4HoQofgf1iIok5o9R+stL7Lruu8SmdjGOzciKcZHEomqqhFcwYgVspyQ==",
+  "dgSpecHash": "cWVIPMtMUWYuUeeq0dMIB775C3PzWxP9HukK3ptWaxEg4NsprHWVzWfBPh5HdtstFnm6b7mk9e+3X70bAiRfoQ==",
   "success": true,
-  "projectFilePath": "D:\\Skillstorm\\Projects\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj",
+  "projectFilePath": "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jonma\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\jonma\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AirlineProject.Data
 {
-    interface IPassengerDAO
+    public interface IPassengerDAO
     {
             //Need a method to get all passengers in database
             public IEnumerable<Passenger> GetPassengers();
@@ -16,5 +16,11 @@ namespace AirlineProject.Data
 
             //neead a method to add a passenger to database
             public void AddPassenger(Passenger passenger);
+
+            //need a method to delete a passenger from the database
+            public void DeletePassenger(int id);
+
+            //need a method to update a passenger
+            public void UpdatePassenger(Passenger passenger);
     }
 }

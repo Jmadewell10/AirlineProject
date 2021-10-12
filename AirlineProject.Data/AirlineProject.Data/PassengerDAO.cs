@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AirlineProject.Data
 {
-    public class PassengerDAO
+    public class PassengerDAO : IPassengerDAO
     {
         private string connString = "Data Source=JONATHAN-PC;Initial Catalog=Airline;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -17,47 +18,39 @@ namespace AirlineProject.Data
 
             using (SqlConnection conn = new SqlConnection(connString))
             {
-
-                conn.Open();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
 
                 //Only want to show name, dob, email, and job title.
-                string query = "SELECT PassengerName, PassengerDateOfBirth, PassengerEmail, PassengerJobTitle FROM dbo.Passengers;";
-
-                SqlTransaction transaction = conn.BeginTransaction("T1");
-                SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = query;
-                cmd.Connection = conn;
-                cmd.Transaction = transaction;
-
+                string query = "SELECT * FROM dbo.Passengers";
+                SqlCommand cmd = new SqlCommand(query, conn);
 
                 try
                 {
-                    int affected = cmd.ExecuteNonQuery();
 
-                    if (affected > 0)
-                    {
-                        transaction.Commit();
-                    }
-                    else
-                    {
-                        transaction.Rollback();
-                    }
+                       
+                    
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
                         Passenger temp = new Passenger(reader["PassengerName"].ToString(), reader["PassengerDateOfBirth"].ToString(), reader["PassengerEmail"].ToString(), reader["PassengerJobTitle"].ToString());
+
+                        temp.id = Convert.ToInt32(reader["PassengerId"]);
+
+                        passengerList.Add(temp);
                     }
                 }
-                catch (SqlException e)
+                catch(SqlException ex)
                 {
-                    Console.WriteLine("Could not get all Passengers!\n{0}", e.Message);
+                    Console.WriteLine("Could not get passengers!\n{0}", ex.Message);
                 }
                 finally
                 {
                     conn.Close();
                 }
-
 
                 return passengerList;
             }
@@ -69,15 +62,19 @@ namespace AirlineProject.Data
 
             using (SqlConnection conn = new SqlConnection(connString))
             {
-                conn.Open();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
 
-                string query = "SELECT * FROM dbo.Passengers WHERE id = @id";
+                string query = "SELECT * FROM dbo.Passengers WHERE PassengerId = @id";
 
                 SqlTransaction transaction = conn.BeginTransaction("T1");
                 SqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = query;
                 cmd.Connection = conn;
                 cmd.Transaction = transaction;
+                cmd.Parameters.AddWithValue("@id", id);
 
                 try
                 {
@@ -96,7 +93,7 @@ namespace AirlineProject.Data
 
                     while (reader.Read())
                     {
-                        passenger = new Passenger();
+                        passenger = new Passenger(reader["PassengerName"].ToString(), reader["PassengerDateOfBirth"].ToString(), reader["PassengerEmail"].ToString(), reader["PassengerJobTitle"].ToString());
 
                         passenger.id = id;
                     }
@@ -118,8 +115,11 @@ namespace AirlineProject.Data
             
             using(SqlConnection conn = new SqlConnection(connString))
             {
-                conn.Open();
-                string query = @"INSERT INTO dbo.Passengers (PassengerName, PassengerEmail, PassengerJobTitle, PassengerDateOfBirth, ConfirmationNumber) OUTPUT INSERTED.Id  values (@PassengerName, @PassengerEmail, @PassengerJobTitle, @PassengerDateOfBirth, @ConfirmationNumber)";
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+                string query = @"INSERT INTO dbo.Passengers (PassengerName, PassengerEmail, PassengerJobTitle, PassengerDateOfBirth, PassengerConfirmationNumber) OUTPUT INSERTED.Id  values (@PassengerName, @PassengerEmail, @PassengerJobTitle, @PassengerDateOfBirth, @PassengerConfirmationNumber)";
 
                 SqlTransaction transaction = conn.BeginTransaction("T1");
                 SqlCommand cmd = conn.CreateCommand();
@@ -130,7 +130,8 @@ namespace AirlineProject.Data
                 cmd.Parameters.AddWithValue("@PassengerEmail", passenger.email);
                 cmd.Parameters.AddWithValue("@PassengerJobTitle", passenger.jobTitle);
                 cmd.Parameters.AddWithValue("@PassengerDateOfBirth", passenger.dob);
-                cmd.Parameters.AddWithValue("@ConfirmationNumber", passenger.confirmationNumber);
+                cmd.Parameters.AddWithValue("@PassengerConfirmationNumber", passenger.confirmationNumber);
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                 try
                 {
@@ -158,6 +159,101 @@ namespace AirlineProject.Data
 
 
 
+
+
+            }
+        }
+
+        public void DeletePassenger(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                string query = "Delete from dbo.Passengers where PassengerId = @Id";
+
+                SqlTransaction transaction = conn.BeginTransaction("T1");
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                cmd.Connection = conn;
+                cmd.Transaction = transaction;
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                try
+                {
+                    int affected = cmd.ExecuteNonQuery();
+
+                    if (affected > 0)
+                    {
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
+
+
+                }catch(SqlException ex)
+                {
+                    Console.WriteLine("Could not delete passenger!!\n {0}", ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+
+            }
+        }
+
+        public void UpdatePassenger(Passenger passenger)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                string query = $"update dbo.Passengers set PassengerDateOfBirth = @dob, PassengerEmail = @email, PassengerJobTitle = @job, PassengerName = @name where PassengerId = @id";
+
+                SqlTransaction transaction = conn.BeginTransaction("T1");
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                cmd.Connection = conn;
+                cmd.Transaction = transaction;
+                cmd.Parameters.AddWithValue("@Id", passenger.id);
+                cmd.Parameters.AddWithValue("@dob", passenger.dob);
+                cmd.Parameters.AddWithValue("@email", passenger.email);
+                cmd.Parameters.AddWithValue("@job", passenger.jobTitle);
+                cmd.Parameters.AddWithValue("@name", passenger.name);
+
+                try
+                {
+                    int affected = cmd.ExecuteNonQuery();
+
+                    if (affected > 0)
+                    {
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
+
+
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not delete passenger!!\n {0}", ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
 
 
             }

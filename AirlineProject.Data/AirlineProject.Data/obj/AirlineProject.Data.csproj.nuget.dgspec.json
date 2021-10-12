@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Skillstorm\\Projects\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj": {}
+    "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj": {}
   },
   "projects": {
-    "D:\\Skillstorm\\Projects\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj": {
+    "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Skillstorm\\Projects\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj",
+        "projectUniqueName": "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj",
         "projectName": "AirlineProject.Data",
-        "projectPath": "D:\\Skillstorm\\Projects\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj",
+        "projectPath": "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.Data\\AirlineProject.Data\\AirlineProject.Data.csproj",
         "packagesPath": "C:\\Users\\jonma\\.nuget\\packages\\",
-        "outputPath": "D:\\Skillstorm\\Projects\\AirlineProject.Data\\AirlineProject.Data\\obj\\",
+        "outputPath": "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.Data\\AirlineProject.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

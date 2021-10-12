@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Skillstorm\\Projects\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp.csproj": {}
+    "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp.csproj": {}
   },
   "projects": {
-    "D:\\Skillstorm\\Projects\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp.csproj": {
+    "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Skillstorm\\Projects\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp.csproj",
+        "projectUniqueName": "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp.csproj",
         "projectName": "AirlineProject.ConsoleApp",
-        "projectPath": "D:\\Skillstorm\\Projects\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp.csproj",
+        "projectPath": "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp.csproj",
         "packagesPath": "C:\\Users\\jonma\\.nuget\\packages\\",
-        "outputPath": "D:\\Skillstorm\\Projects\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\obj\\",
+        "outputPath": "D:\\Skillstorm\\Projects\\AirlineProject\\AirlineProject.ConsoleApp\\AirlineProject.ConsoleApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -43,6 +43,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

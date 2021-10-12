@@ -10,3 +10,15 @@ D:\Skillstorm\Projects\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\
 D:\Skillstorm\Projects\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\AirlineProject.Data.dll
 D:\Skillstorm\Projects\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\ref\AirlineProject.Data.dll
 D:\Skillstorm\Projects\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\AirlineProject.Data.pdb
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\bin\Debug\net5.0\AirlineProject.Data.deps.json
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\bin\Debug\net5.0\AirlineProject.Data.dll
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\bin\Debug\net5.0\ref\AirlineProject.Data.dll
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\bin\Debug\net5.0\AirlineProject.Data.pdb
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\AirlineProject.Data.csproj.AssemblyReference.cache
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\AirlineProject.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\AirlineProject.Data.AssemblyInfoInputs.cache
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\AirlineProject.Data.AssemblyInfo.cs
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\AirlineProject.Data.csproj.CoreCompileInputs.cache
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\AirlineProject.Data.dll
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\ref\AirlineProject.Data.dll
+D:\Skillstorm\Projects\AirlineProject\AirlineProject.Data\AirlineProject.Data\obj\Debug\net5.0\AirlineProject.Data.pdb
