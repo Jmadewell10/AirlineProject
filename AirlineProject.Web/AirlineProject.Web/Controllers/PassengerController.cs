@@ -28,6 +28,7 @@ namespace AirlineProject.Web.Controllers
             {
                 PassengerViewModel temp = new PassengerViewModel()
                 {
+                    Id = passenger.id,
                     name = passenger.name,
                     email = passenger.email,
                     dob = passenger.dob,

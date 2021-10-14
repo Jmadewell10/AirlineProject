@@ -9,13 +9,13 @@ namespace AirlineProject.Data
 {
     public class Plane
     {
+        [Display(Name = "Plane Id: ")]
         public int id{ get; set; }
         [Display (Name = "Name")]
         public string name { get; set; }
         [Display(Name = "Capacity")]
         public int capacity { get; set; }
-        [Display(Name = "Number Of Pilots")]
-        public int numberOfPilots { get; set; }
+        
 
 
         public Plane()
@@ -23,11 +23,11 @@ namespace AirlineProject.Data
 
         }
 
-        public Plane(string name, int capacity, int numberOfPilots)
+        public Plane(string name, int capacity)
         {
             this.name = name;
             this.capacity = capacity;
-            this.numberOfPilots = numberOfPilots;
+            
         }
 
     }

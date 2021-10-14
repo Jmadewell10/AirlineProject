@@ -25,18 +25,21 @@ namespace AirlineProject.Data
         public string jobTitle { get; set; }
         [Display(Name = "Confirmation Number: ")]
         public int confirmationNumber { get; set; }
+        
+        public Flight flight { get; set; }
 
         public Passenger()
         {
 
         }
 
-        public Passenger(string name, string dob, string email, string jobTitle)
+        public Passenger(string name, string dob, string email, string jobTitle, Flight flight)
         {
             this.name = name;
             this.dob = dob;
             this.email = email;
             this.jobTitle = jobTitle;
+            this.flight = flight;
         }
 
         public override string ToString()

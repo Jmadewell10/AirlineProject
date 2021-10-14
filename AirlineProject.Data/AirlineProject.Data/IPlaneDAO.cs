@@ -13,5 +13,9 @@ namespace AirlineProject.Data
         public Plane GetPlane(int id);
 
         public void AddPlane(Plane plane);
+
+        public void DeletePlane(int id);
+
+        public void UpdatePlane(Plane plane);
     }
 }
