@@ -4,31 +4,40 @@
     ViewData["Title"] = "Planes";
 }
 
-<h1>Our Fleet</h1>
 
-<div>
-    <a class="navbar-brand" asp-area="" asp-controller="Plane" asp-action="Create">New Plane</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <td>@Html.DisplayNameFor(model => model.id)</td>
-                <td>@Html.DisplayNameFor(model => model.name)</td>
-                <td>@Html.DisplayNameFor(model => model.capacity)</td>
-                
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var plane in Model)
-            {
-            <tr>
-                <td>@Html.DisplayFor(modelitem => plane.id)</td>
-                <td>@Html.DisplayFor(modelitem => plane.name)</td>
-                <td>@Html.DisplayFor(modelitem => plane.capacity)</td>
+<html style="height: 100%">
+<body style="background: linear-gradient(135deg, #9b76d7 10%, #0f12b7 100%)">
+    <div>
+        <h1 class="text-light">Our Fleet</h1>
+        <a class="navbar-brand text-light" asp-area="" asp-controller="Plane" asp-action="Create">New Plane</a>
+        <table class="table table-hover text-light">
+            <thead>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.id)</td>
+                    <td>@Html.DisplayNameFor(model => model.name)</td>
+                    <td>@Html.DisplayNameFor(model => model.capacity)</td>
+                    <td>Detalis</td>
 
-                <td>@Html.ActionLink("Details", "Details", new { id = plane.id })</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var plane in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelitem => plane.id)</td>
+                        <td>@Html.DisplayFor(modelitem => plane.name)</td>
+                        <td>@Html.DisplayFor(modelitem => plane.capacity)</td>
 
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                        <td>@Html.ActionLink("Details", "Details", new { id = plane.id }, new { style = "color: white" })</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+
+
+

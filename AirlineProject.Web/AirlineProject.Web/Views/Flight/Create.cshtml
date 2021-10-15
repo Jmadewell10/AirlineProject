@@ -3,53 +3,57 @@
 @{
     ViewData["Title"] = "Create";
 }
+<html style="height: 100%">
+<body style="background: linear-gradient(135deg, #9b76d7 10%, #0f12b7 100%)">
+    <h1 class="text-light">Create</h1>
 
-<h1>Create</h1>
-
-<h4>Flight</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="arrivalTime" class="control-label"></label>
-                <input asp-for="arrivalTime" class="form-control" />
-                <span asp-validation-for="arrivalTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="departureTime" class="control-label"></label>
-                <input asp-for="departureTime" class="form-control" />
-                <span asp-validation-for="departureTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="departureAirport" class="control-label"></label>
-                <input asp-for="departureAirport" class="form-control" />
-                <span asp-validation-for="departureAirport" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="arrivalAirport" class="control-label"></label>
-                <input asp-for="arrivalAirport" class="form-control" />
-                <span asp-validation-for="arrivalAirport" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="plane.id" class="control-label"></label>
-                <input asp-for="plane.id" class="form-control" />
-                <span asp-validation-for="plane.id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="pilot.id" class="control-label"></label>
-                <input asp-for="pilot.id" class="form-control" />
-                <span asp-validation-for="pilot.id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <h4 class="text-light">Flight</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group text-light">
+                    <label asp-for="arrivalTime" class="control-label"></label>
+                    <input asp-for="arrivalTime" class="form-control" />
+                    <span asp-validation-for="arrivalTime" class="text-danger"></span>
+                </div>
+                <div class="form-group text-light">
+                    <label asp-for="departureTime" class="control-label"></label>
+                    <input asp-for="departureTime" class="form-control" />
+                    <span asp-validation-for="departureTime" class="text-danger"></span>
+                </div>
+                <div class="form-group text-light">
+                    <label asp-for="departureAirport" class="control-label"></label>
+                    <input asp-for="departureAirport" class="form-control" />
+                    <span asp-validation-for="departureAirport" class="text-danger"></span>
+                </div>
+                <div class="form-group text-light">
+                    <label asp-for="arrivalAirport" class="control-label"></label>
+                    <input asp-for="arrivalAirport" class="form-control" />
+                    <span asp-validation-for="arrivalAirport" class="text-danger"></span>
+                </div>
+                <div class="form-group text-light">
+                    <label asp-for="plane.id" class="control-label"></label>
+                    <input asp-for="plane.id" class="form-control" />
+                    <span asp-validation-for="plane.id" class="text-danger"></span>
+                </div>
+                <div class="form-group text-light">
+                    <label asp-for="pilot.id" class="control-label"></label>
+                    <input asp-for="pilot.id" class="form-control" />
+                    <span asp-validation-for="pilot.id" class="text-danger"></span>
+                </div>
+                <div class="form-group text-light">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a class ="text-light" asp-action="Index">Back to List</a>
+    </div>
+
+</body>
+</html>
 

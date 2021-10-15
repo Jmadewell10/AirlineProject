@@ -4,39 +4,46 @@
     ViewData["Title"] = "Flights";
 }
 
-<h1>Flights</h1>
+<html style="height: 100%">
+<body style="background: linear-gradient(135deg, #9b76d7 10%, #0f12b7 100%)">
+    <h1 class="text-light">Flights</h1>
 
-<div>
-    <a class="navbar-brand" asp-area="" asp-controller="Flight" asp-action="Create">New Flight</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <td>@Html.DisplayNameFor(model => model.id)</td>
-                <td>@Html.DisplayNameFor(model => model.arrivalAirport)</td>
-                <td>@Html.DisplayNameFor(model => model.departureAirport)</td>
-                <td>@Html.DisplayNameFor(model => model.departureTime)</td>
-                <td>@Html.DisplayNameFor(model => model.arrivalTime)</td>
-                <td>@Html.DisplayNameFor(model => model.plane)</td>
-                <td>@Html.DisplayNameFor(model => model.pilot)</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var flight in Model)
-            {
-            <tr>
-                <td>@Html.DisplayFor(modelitem => flight.id)</td>
-                <td>@Html.DisplayFor(modelitem => flight.arrivalAirport)</td>
-                <td>@Html.DisplayFor(modelitem => flight.departureAirport)</td>
-                <td>@Html.DisplayFor(modelitem => flight.departureTime)</td>
-                <td>@Html.DisplayFor(modelitem => flight.arrivalTime)</td>
-                <td>@Html.DisplayFor(modelitem => flight.plane.name)</td>
-                <td>@Html.DisplayFor(modelitem => flight.pilot.name)</td>
+    <div>
+        <a class="navbar-brand text-light" asp-area="" asp-controller="Flight" asp-action="Create">New Flight</a>
+        <table class="table table-hover text-light">
+            <thead>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.id)</td>
+                    <td>@Html.DisplayNameFor(model => model.arrivalAirport)</td>
+                    <td>@Html.DisplayNameFor(model => model.departureAirport)</td>
+                    <td>@Html.DisplayNameFor(model => model.departureTime)</td>
+                    <td>@Html.DisplayNameFor(model => model.arrivalTime)</td>
+                    <td>@Html.DisplayNameFor(model => model.plane)</td>
+                    <td>@Html.DisplayNameFor(model => model.pilot)</td>
+                    <td>Details</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var flight in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelitem => flight.id)</td>
+                        <td>@Html.DisplayFor(modelitem => flight.arrivalAirport)</td>
+                        <td>@Html.DisplayFor(modelitem => flight.departureAirport)</td>
+                        <td>@Html.DisplayFor(modelitem => flight.departureTime)</td>
+                        <td>@Html.DisplayFor(modelitem => flight.arrivalTime)</td>
+                        <td>@Html.DisplayFor(modelitem => flight.plane.name)</td>
+                        <td>@Html.DisplayFor(modelitem => flight.pilot.name)</td>
 
-                <td>@Html.ActionLink("Details", "Details", new { id = flight.id })</td>
+                        <td>@Html.ActionLink("Details", "Details", new { id = flight.id }, new { style = "color: white" })</td>
 
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+
 

@@ -4,27 +4,33 @@
     ViewData["Title"] = "Pilots";
 }
 
-<div>
-    <h2>Meet Our Pilots!</h2>
-    <a class="navbar-brand" asp-area="" asp-controller="Pilot" asp-action="Create">New Pilot</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <td>@Html.DisplayNameFor(model => model.name)</td>
-                <td>@Html.DisplayNameFor(model => model.email)</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var pilot in Model)
-            {
+<html style="height: 100%">
+<body style="background: linear-gradient(135deg, #9b76d7 10%, #0f12b7 100%)">
+    <div>
+        <h2 class="text-light">Meet Our Pilots!</h2>
+        <a class="navbar-brand text-light" asp-area="" asp-controller="Pilot" asp-action="Create">New Pilot</a>
+        <table class="table table-hover text-light">
+            <thead>
                 <tr>
-                    <td>@Html.DisplayFor(modelitem => pilot.name)</td>
-                    <td>@Html.DisplayFor(modelitem => pilot.email)</td>
-
-                    <td>@Html.ActionLink("Details", "Details", new { id = pilot.id })</td>
-
+                    <td>@Html.DisplayNameFor(model => model.name)</td>
+                    <td>@Html.DisplayNameFor(model => model.email)</td>
+                    <td>Details</td>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var pilot in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelitem => pilot.name)</td>
+                        <td>@Html.DisplayFor(modelitem => pilot.email)</td>
+
+                        <td>@Html.ActionLink("Details", "Details", new { id = pilot.id }, new { style = "color: white" })</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+

@@ -4,9 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="text-light">Details</h1>
 
-<div>
+<div class="text-light">
     <h4>Plane</h4>
     <hr />
     <dl class="row">
@@ -31,7 +31,7 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.id }) | 
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }, new { style = "color: white" }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.id }, new { style = "color: white" }) | 
+    <a class="text-light" asp-action="Index">Back to List</a>
 </div>

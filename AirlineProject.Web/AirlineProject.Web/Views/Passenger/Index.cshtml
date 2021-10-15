@@ -6,32 +6,39 @@
     ViewData["Title"] = "Passengers";
 }
 
-<div>
-    <h2>View all Passengers</h2>
-    <a class="navbar-brand" asp-area="" asp-controller="Passenger" asp-action="Create">New Passenger</a>
-    <table class ="table">
-        <thead>
-            <tr>
-                <td>@Html.DisplayNameFor(model => model.name)</td>
-                <td>@Html.DisplayNameFor(model => model.email)</td>
-                <td>@Html.DisplayNameFor(model => model.dob)</td>
-                <td>@Html.DisplayNameFor(model => model.jobTitle)</td>
-                <td>@Html.DisplayNameFor(model => model.confirmationNumber)</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var passenger in Model)
-            {
-            <tr>
-                <td>@Html.DisplayFor(modelitem => passenger.name)</td>
-                <td>@Html.DisplayFor(modelitem => passenger.email)</td>
-                <td>@Html.DisplayFor(modelitem => passenger.dob)</td>
-                <td>@Html.DisplayFor(modelitem => passenger.jobTitle)</td>
-                <td>@Html.DisplayFor(modelitem => passenger.confirmationNumber)</td>
-                <td>@Html.ActionLink("Details", "Details", new { id = passenger.id})</td>
+<html style="height: 100%">
+<body style="background: linear-gradient(135deg, #9b76d7 10%, #0f12b7 100%)">
+    <div>
+        <h2 class="text-light">View all Passengers</h2>
+        <a class="navbar-brand text-light" asp-area="" asp-controller="Passenger" asp-action="Create">New Passenger</a>
+        <table class="table table-hover text-light">
+            <thead>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.name)</td>
+                    <td>@Html.DisplayNameFor(model => model.email)</td>
+                    <td>@Html.DisplayNameFor(model => model.dob)</td>
+                    <td>@Html.DisplayNameFor(model => model.jobTitle)</td>
+                    <td>@Html.DisplayNameFor(model => model.confirmationNumber)</td>
+                    <td>Details</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var passenger in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelitem => passenger.name)</td>
+                        <td>@Html.DisplayFor(modelitem => passenger.email)</td>
+                        <td>@Html.DisplayFor(modelitem => passenger.dob)</td>
+                        <td>@Html.DisplayFor(modelitem => passenger.jobTitle)</td>
+                        <td>@Html.DisplayFor(modelitem => passenger.confirmationNumber)</td>
+                        <td>@Html.ActionLink("Details", "Details", new { id = passenger.id }, new { style = "color: white" })</td>
 
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+
