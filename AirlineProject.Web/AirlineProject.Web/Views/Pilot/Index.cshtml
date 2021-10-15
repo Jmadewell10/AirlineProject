@@ -1,0 +1,30 @@
+﻿@model IEnumerable<AirlineProject.Data.Pilot>
+
+@{
+    ViewData["Title"] = "Pilots";
+}
+
+<div>
+    <h2>Meet Our Pilots!</h2>
+    <a class="navbar-brand" asp-area="" asp-controller="Pilot" asp-action="Create">New Pilot</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.name)</td>
+                <td>@Html.DisplayNameFor(model => model.email)</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pilot in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelitem => pilot.name)</td>
+                    <td>@Html.DisplayFor(modelitem => pilot.email)</td>
+
+                    <td>@Html.ActionLink("Details", "Details", new { id = pilot.id })</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

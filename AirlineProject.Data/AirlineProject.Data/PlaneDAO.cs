@@ -122,7 +122,7 @@ namespace AirlineProject.Data
                 {
                     conn.Open();
                 }
-                string query = @"INSERT INTO dbo.Planes (PlaneName, PlaneCapacity) OUTPUT INSERTED.PlaneId  values (@PlaneName, @PlaneCapacity)";
+                string query = @"INSERT INTO dbo.Planes (PlaneName, PlaneCapacity) values (@PlaneName, @PlaneCapacity)";
 
                 SqlTransaction transaction = conn.BeginTransaction("T1");
                 SqlCommand cmd = conn.CreateCommand();
@@ -131,7 +131,7 @@ namespace AirlineProject.Data
                 cmd.Transaction = transaction;
                 cmd.Parameters.AddWithValue("@PlaneName", plane.name);
                 cmd.Parameters.AddWithValue("@PlaneCapacity", plane.capacity);
-                cmd.Parameters.Add("@Id", SqlDbType.Int).Direction = ParameterDirection.Output;
+
 
                 try
                 {
@@ -145,9 +145,6 @@ namespace AirlineProject.Data
                     {
                         transaction.Rollback();
                     }
-                    id = (int)cmd.Parameters["@Id"].Value;
-
-                    plane.id = id;
                 }
                 catch (SqlException ex)
                 {

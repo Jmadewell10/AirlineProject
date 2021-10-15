@@ -24,7 +24,7 @@ namespace AirlineProject.Data
                 }
 
                 //Only want to show name, dob, email, and job title.
-                string query = "SELECT * FROM dbo.Passengers INNER JOIN dbo.Confirmations on Passengers.PassengerConfirmationNumber = ConfirmationId INNER JOIN dbo.Flights on dbo.Confirmations.Flight = FlightId Inner join dbo.Planes on dbo.Flights.Plane = PlaneId Inner Join dbo.Pilots on dbo.Flights.Pilot = PilotId";
+                string query = "SELECT * FROM dbo.Passengers inner join dbo.Flights on PassengerFlight = FlightId inner join dbo.Planes on Flights.Plane = PlaneId inner join dbo.Pilots on Pilot = PilotId";
                 SqlCommand cmd = new SqlCommand(query, conn);
 
                 try
@@ -43,12 +43,12 @@ namespace AirlineProject.Data
                         tempPilot.id = Convert.ToInt32(reader["PilotId"]);
 
                         Flight tempFlight = new Flight(tempPlane, tempPilot, reader["ArrivalTime"].ToString(), reader["DepartureTime"].ToString(), reader["DepartureAirport"].ToString(), reader["ArrivalAirport"].ToString());
-
+                        tempFlight.id = Convert.ToInt32(reader["FlightId"]);
 
                         Passenger temp = new Passenger(reader["PassengerName"].ToString(), reader["PassengerDateOfBirth"].ToString(), reader["PassengerEmail"].ToString(), reader["PassengerJobTitle"].ToString(), tempFlight);
 
                         temp.id = Convert.ToInt32(reader["PassengerId"]);
-                        temp.confirmationNumber = Convert.ToInt32(reader["PassengerConfirmationNumber"]);
+                        temp.confirmationNumber = reader["ConfirmationNumber"].ToString();
 
 
                         passengerList.Add(temp);
@@ -78,7 +78,7 @@ namespace AirlineProject.Data
                     conn.Open();
                 }
 
-                string query = "SELECT * FROM dbo.Passengers INNER JOIN dbo.Confirmations on Passengers.PassengerConfirmationNumber = ConfirmationId INNER JOIN dbo.Flights on dbo.Confirmations.Flight = FlightId Inner join dbo.Planes on dbo.Flights.Plane = PlaneId Inner Join dbo.Pilots on dbo.Flights.Pilot = PilotId WHERE PassengerId = @id";
+                string query = "SELECT * FROM dbo.Passengers inner join dbo.Flights on PassengerFlight = FlightId inner join dbo.Planes on Flights.Plane = PlaneId inner join dbo.Pilots on Pilot = PilotId WHERE PassengerId = @id";
 
                 SqlTransaction transaction = conn.BeginTransaction("T1");
                 SqlCommand cmd = conn.CreateCommand();
@@ -111,8 +111,11 @@ namespace AirlineProject.Data
                         tempPilot.id = Convert.ToInt32(reader["PilotId"]);
 
                         Flight tempFlight = new Flight(tempPlane, tempPilot, reader["ArrivalTime"].ToString(), reader["DepartureTime"].ToString(), reader["DepartureAirport"].ToString(), reader["ArrivalAirport"].ToString());
+                        tempFlight.id = Convert.ToInt32(reader["FlightId"]);
 
                         passenger = new Passenger(reader["PassengerName"].ToString(), reader["PassengerDateOfBirth"].ToString(), reader["PassengerEmail"].ToString(), reader["PassengerJobTitle"].ToString(), tempFlight);
+
+                        passenger.confirmationNumber = reader["ConfirmationNumber"].ToString();
 
                         passenger.id = id;
                     }
@@ -139,15 +142,8 @@ namespace AirlineProject.Data
                     conn.Open();
                 }
 
-                ConfirmationDAO conDao = new ConfirmationDAO();
-                Confirmation confirmation = new Confirmation();
 
-                confirmation.flightId = passenger.flight.id;
-
-                conDao.AddConfirmation(confirmation);
-                passenger.confirmationNumber = confirmation.id;
-
-                string query = @"INSERT INTO dbo.Passengers (PassengerName, PassengerEmail, PassengerJobTitle, PassengerDateOfBirth, PassengerConfirmationNumber) OUTPUT INSERTED.PassengerId  values (@PassengerName, @PassengerEmail, @PassengerJobTitle, @PassengerDateOfBirth, @PassengerConfirmationNumber)";
+                string query = @"INSERT INTO dbo.Passengers (PassengerName, PassengerEmail, PassengerJobTitle, PassengerDateOfBirth, PassengerFLight) values (@PassengerName, @PassengerEmail, @PassengerJobTitle, @PassengerDateOfBirth, @PassengerFlight)";
 
                 SqlTransaction transaction = conn.BeginTransaction("T1");
                 SqlCommand cmd = conn.CreateCommand();
@@ -158,19 +154,12 @@ namespace AirlineProject.Data
                 cmd.Parameters.AddWithValue("@PassengerEmail", passenger.email);
                 cmd.Parameters.AddWithValue("@PassengerJobTitle", passenger.jobTitle);
                 cmd.Parameters.AddWithValue("@PassengerDateOfBirth", passenger.dob);
-                cmd.Parameters.AddWithValue("@PassengerConfirmationNumber", passenger.confirmationNumber);
-                cmd.Parameters.Add("@Id", SqlDbType.Int).Direction = ParameterDirection.Output;
+                cmd.Parameters.AddWithValue("@PassengerFlight", passenger.flight.id);
+
 
                 try
                 {
-                    Flight temp = new Flight();
-                    Confirmation tempconfirmation = new Confirmation();
-
-                    int flight = tempconfirmation.GetFlight(passenger.confirmationNumber);
-                    int capacity = temp.CheckCapacity(flight);
-
-                    if (tempconfirmation.HowFull(flight) <= capacity)
-                    {
+                    
                         int affected = cmd.ExecuteNonQuery();
 
                         if (affected > 0)
@@ -181,12 +170,8 @@ namespace AirlineProject.Data
                         {
                             transaction.Rollback();
                         }
-                        id = (int)cmd.Parameters["@Id"].Value;
                         
-
-                        passenger.id = id;
-                        
-                    }
+                    
                 }catch(SqlException ex)
                 {
                     Console.WriteLine("Could not add passenger!\n{0}", ex.Message);
@@ -257,7 +242,7 @@ namespace AirlineProject.Data
                     conn.Open();
                 }
 
-                string query = $"update dbo.Passengers set PassengerDateOfBirth = @dob, PassengerEmail = @email, PassengerJobTitle = @job, PassengerName = @name where PassengerId = @id";
+                string query = $"update dbo.Passengers set PassengerDateOfBirth = @dob, PassengerEmail = @email, PassengerJobTitle = @job, PassengerName = @name, PassengerFlight = @Flight where PassengerId = @id";
 
                 SqlTransaction transaction = conn.BeginTransaction("T1");
                 SqlCommand cmd = conn.CreateCommand();
@@ -269,6 +254,7 @@ namespace AirlineProject.Data
                 cmd.Parameters.AddWithValue("@email", passenger.email);
                 cmd.Parameters.AddWithValue("@job", passenger.jobTitle);
                 cmd.Parameters.AddWithValue("@name", passenger.name);
+                cmd.Parameters.AddWithValue("@Flight", passenger.flight.id);
 
                 try
                 {
@@ -295,6 +281,69 @@ namespace AirlineProject.Data
                 }
 
 
+            }
+        }
+
+        public Passenger GetPassengerByName(string name)
+        {
+            Passenger passenger = new Passenger();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                string query = "SELECT * FROM dbo.Passengers inner join dbo.Confirmations on PassengerConfirmationNumber = ConfirmationId inner join dbo.Flights on PassengerFlight = FlightId inner join dbo.Planes on Flights.Plane = PlaneId WHERE PassengerName = @name";
+
+                SqlTransaction transaction = conn.BeginTransaction("T1");
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                cmd.Connection = conn;
+                cmd.Transaction = transaction;
+                cmd.Parameters.AddWithValue("@Name", name);
+
+                try
+                {
+                    int affected = cmd.ExecuteNonQuery();
+
+                    if (affected > 0)
+                    {
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Plane tempPlane = new Plane(reader["PlaneName"].ToString(), Int32.Parse(reader["PlaneCapacity"].ToString()));
+                        tempPlane.id = Convert.ToInt32(reader["PlaneId"]);
+
+                        Pilot tempPilot = new Pilot(reader["PilotName"].ToString(), reader["PilotEmail"].ToString());
+                        tempPilot.id = Convert.ToInt32(reader["PilotId"]);
+
+                        Flight tempFlight = new Flight(tempPlane, tempPilot, reader["ArrivalTime"].ToString(), reader["DepartureTime"].ToString(), reader["DepartureAirport"].ToString(), reader["ArrivalAirport"].ToString());
+
+                        passenger = new Passenger(reader["PassengerName"].ToString(), reader["PassengerDateOfBirth"].ToString(), reader["PassengerEmail"].ToString(), reader["PassengerJobTitle"].ToString(), tempFlight);
+
+                        passenger.confirmationNumber = reader["PassengerConfirmationNumber"].ToString();
+                        passenger.id = Convert.ToInt32(reader["PassengerId"]);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not get passenger\n{0}", ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+                return passenger;
             }
         }
     }

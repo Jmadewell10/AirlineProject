@@ -11,9 +11,9 @@ namespace AirlineProject.Data
     {
         [Display(Name = "Plane Id: ")]
         public int id{ get; set; }
-        [Display (Name = "Name")]
+        [Display (Name = "Plane: ")]
         public string name { get; set; }
-        [Display(Name = "Capacity")]
+        [Display(Name = "Capacity: ")]
         public int capacity { get; set; }
         
 

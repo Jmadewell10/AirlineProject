@@ -134,7 +134,7 @@ namespace AirlineProject.Data
                 {
                     conn.Open();
                 }
-                string query = @"INSERT INTO dbo.Flights (Plane, Pilot, ArrivalTime, DepartureTime, DepartureAirport, ArrivalAirport) OUTPUT INSERTED.FlightId  values (@PlaneId, @PilotId, @ArrivalTime, @DepartureTime, @DepartureAirport, @ArrivalAirport)";
+                string query = @"INSERT INTO dbo.Flights (Plane, Pilot, ArrivalTime, DepartureTime, DepartureAirport, ArrivalAirport) values (@PlaneId, @PilotId, @ArrivalTime, @DepartureTime, @DepartureAirport, @ArrivalAirport)";
 
                 SqlTransaction transaction = conn.BeginTransaction("T1");
                 SqlCommand cmd = conn.CreateCommand();
@@ -147,7 +147,7 @@ namespace AirlineProject.Data
                 cmd.Parameters.AddWithValue("@DepartureTime", flight.departureTime);
                 cmd.Parameters.AddWithValue("@DepartureAirport", flight.departureAirport);
                 cmd.Parameters.AddWithValue("@ArrivalAirport", flight.arrivalAirport);
-                cmd.Parameters.Add("@Id", SqlDbType.Int).Direction = ParameterDirection.Output;
+
 
                 try
                 {
@@ -161,9 +161,7 @@ namespace AirlineProject.Data
                     {
                         transaction.Rollback();
                     }
-                    id = (int)cmd.Parameters["@Id"].Value;
 
-                    flight.id = id;
                 }
                 catch (SqlException ex)
                 {

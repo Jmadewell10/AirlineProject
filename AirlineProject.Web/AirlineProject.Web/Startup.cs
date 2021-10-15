@@ -26,6 +26,9 @@ namespace AirlineProject.Web
         {
             services.AddControllersWithViews();
             services.AddScoped<IPassengerDAO, PassengerDAO>();
+            services.AddScoped<IPilotDAO, PilotDAO>();
+            services.AddScoped<IPlaneDAO, PlaneDAO>();
+            services.AddScoped<IFlightDAO, FlightDAO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

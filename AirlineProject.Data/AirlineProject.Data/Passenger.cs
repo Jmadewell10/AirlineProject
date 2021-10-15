@@ -24,8 +24,8 @@ namespace AirlineProject.Data
         [Display(Name = "Job Title: ")]
         public string jobTitle { get; set; }
         [Display(Name = "Confirmation Number: ")]
-        public int confirmationNumber { get; set; }
-        
+        public string confirmationNumber { get; set; }
+        [Display(Name ="Flight Information: ")]
         public Flight flight { get; set; }
 
         public Passenger()
@@ -45,6 +45,61 @@ namespace AirlineProject.Data
         public override string ToString()
         {
             return $"[Passenger Id: {id}, Name: {name}, Email: {email}, Job Title: {jobTitle}, Confirmation Number {confirmationNumber}]";
+        }
+        public int CheckCapacity(int id)
+        {
+            int capacity = 0;
+
+            FlightDAO dao = new FlightDAO();
+            PlaneDAO planeDao = new PlaneDAO();
+
+           
+            Flight flight = dao.GetFlight(id);
+            Plane plane = planeDao.GetPlane(flight.id);
+            flight.plane = plane;
+
+
+            capacity = flight.plane.capacity;
+
+            return capacity;
+        }
+
+        public int HowFull(int id)
+        {
+            int filled = 0;
+
+            FlightDAO flightDAO = new FlightDAO();
+
+            Flight flight = flightDAO.GetFlight(id);
+
+            List<Flight> flights = new List<Flight>();
+
+            foreach (var flight1 in flightDAO.GetFights())
+            {
+                flights.Add(flight1);
+            }
+
+            foreach (var f in flights)
+            {
+                int count = 0;
+                if (f.id == id)
+                {
+                    count++;
+                    filled = count;
+                }
+
+            }
+
+            return filled;
+        }
+
+        public int GetId(Passenger passenger)
+        {
+            PassengerDAO passengerDAO = new PassengerDAO();
+            Passenger newPassenger = passengerDAO.GetPassengerByName(passenger.name);
+
+            return newPassenger.id;
+
         }
     }
 }

@@ -1,14 +1,14 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-    @model IEnumerable<AirlineProject.Web.Models.PassengerViewModel>
+    @model IEnumerable<AirlineProject.Data.Passenger>
 @{
     ViewData["Title"] = "Passengers";
 }
 
 <div>
     <h2>View all Passengers</h2>
-    <a class="navbar-brand" asp-area="" asp-controller="Create">New Passenger</a>
+    <a class="navbar-brand" asp-area="" asp-controller="Passenger" asp-action="Create">New Passenger</a>
     <table class ="table">
         <thead>
             <tr>
@@ -28,7 +28,7 @@
                 <td>@Html.DisplayFor(modelitem => passenger.dob)</td>
                 <td>@Html.DisplayFor(modelitem => passenger.jobTitle)</td>
                 <td>@Html.DisplayFor(modelitem => passenger.confirmationNumber)</td>
-                <td>@Html.ActionLink("Details", "Details", new { id = passenger.Id})</td>
+                <td>@Html.ActionLink("Details", "Details", new { id = passenger.id})</td>
 
             </tr>
             }

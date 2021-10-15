@@ -42,17 +42,5 @@ namespace AirlineProject.Data
             this.arrivalAirport = arrivalAirport;
         }
 
-        public int CheckCapacity(int id)
-        {
-            int capacity = 0;
-
-            FlightDAO dao = new FlightDAO();
-
-            Flight flight = dao.GetFlight(id);
-
-            capacity = flight.plane.capacity;
-
-            return capacity;
-        }
     }
 }

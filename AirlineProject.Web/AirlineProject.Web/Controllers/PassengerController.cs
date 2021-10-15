@@ -12,6 +12,7 @@ namespace AirlineProject.Web.Controllers
     public class PassengerController : Controller
     {
         private readonly IPassengerDAO passengerDAO;
+        private readonly IFlightDAO flightDAO;
 
         public PassengerController(IPassengerDAO passengerdao)
         {
@@ -22,13 +23,13 @@ namespace AirlineProject.Web.Controllers
         public IActionResult Index()
         {
             IEnumerable<Passenger> mpassengers = passengerDAO.GetPassengers();
-            List<PassengerViewModel> model = new List<PassengerViewModel>();
+            List<Passenger> model = new List<Passenger>();
 
             foreach(var passenger in mpassengers)
             {
-                PassengerViewModel temp = new PassengerViewModel()
+                Passenger temp = new Passenger()
                 {
-                    Id = passenger.id,
+                    id = passenger.id,
                     name = passenger.name,
                     email = passenger.email,
                     dob = passenger.dob,
@@ -53,65 +54,81 @@ namespace AirlineProject.Web.Controllers
         // GET: PassengerController/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
         // POST: PassengerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind] PassengerViewModel passenger)
+        public ActionResult Create([Bind] Passenger passenger)
         {
-            if (ModelState.IsValid)
+            if(passenger.HowFull(passenger.flight.id) < passenger.CheckCapacity(passenger.flight.id))
             {
-                Passenger newPassenger = new Passenger();
-                newPassenger.name = passenger.name;
-                newPassenger.id = passenger.Id;
-                newPassenger.email = passenger.email;
-                newPassenger.dob = passenger.dob;
-                newPassenger.confirmationNumber = passenger.confirmationNumber;
+                if (ModelState.IsValid)
+                {
+                    Passenger newPassenger = new Passenger();
+                    newPassenger.name = passenger.name;
+                    newPassenger.id = passenger.id;
+                    newPassenger.email = passenger.email;
+                    newPassenger.dob = passenger.dob;
+                    newPassenger.confirmationNumber = passenger.confirmationNumber;
 
-                passengerDAO.AddPassenger(newPassenger);
+                    passengerDAO.AddPassenger(passenger);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+
+                }
             }
-
             return View(passenger);
         }
 
         // GET: PassengerController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Passenger model = passengerDAO.GetPassenger(id);
+            return View(model);
         }
 
         // POST: PassengerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit([Bind]Passenger passenger)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                Passenger newPassenger = new Passenger();
+                newPassenger.name = passenger.name;
+                newPassenger.id = passenger.id;
+                newPassenger.email = passenger.email;
+                newPassenger.dob = passenger.dob;
+                newPassenger.confirmationNumber = passenger.confirmationNumber;
+
+                passengerDAO.UpdatePassenger(passenger);
+
+                return RedirectToAction("Index");
+
             }
-            catch
-            {
-                return View();
-            }
+            return View(passenger);
         }
 
         // GET: PassengerController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Passenger model = passengerDAO.GetPassenger(id);
+
+            return View(model);
         }
 
         // POST: PassengerController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
+                Passenger passenger = passengerDAO.GetPassenger(id);
+                passengerDAO.DeletePassenger(passenger.id);
                 return RedirectToAction(nameof(Index));
             }
             catch

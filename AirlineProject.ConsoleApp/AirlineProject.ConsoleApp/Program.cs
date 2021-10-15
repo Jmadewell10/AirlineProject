@@ -8,8 +8,44 @@ namespace AirlineProject.ConsoleApp
         static void Main(string[] args)
         {
             PassengerDAO dao = new PassengerDAO();
+            PilotDAO pilotDAO = new PilotDAO();
+            PlaneDAO planeDAO = new PlaneDAO();
+            FlightDAO fdao = new FlightDAO();
 
-            Passenger passenger1 = new Passenger("Fake Man", "1/05/1984", "FakeDude@fakeemail.com", "Ghost");
+            Plane plane = planeDAO.GetPlane(1);
+            Pilot pilot = pilotDAO.GetPilot(1);
+
+            Flight tempFlight = fdao.GetFlight(1);
+
+            Passenger passenger1 = new Passenger("Fake Man", "1/05/1984", "FakeDude@fakeemail.com", "Ghost", tempFlight);
+
+
+
+            //
+            //Pilot pilot = new Pilot("Pilot Man", "pilotman@email.com");
+
+            //pilotDAO.AddPilot(pilot);
+
+            int capacity = passenger1.CheckCapacity(passenger1.flight.id);
+            int howFull = passenger1.HowFull(passenger1.flight.id);
+            Console.WriteLine(howFull);
+            Console.WriteLine(capacity);
+
+
+            //dao.AddPassenger(passenger1);
+            //int confirmationNumber = passenger1.GenerateConfirmationNumber();
+            //Console.WriteLine(confirmationNumber);
+            //Passenger newPassenger = dao.GetPassengerByName(passenger1.name);
+            //newPassenger.FinalizeConfirmation(confirmationNumber, newPassenger.id);
+            //Console.WriteLine("Success");
+
+
+
+
+
+
+
+
 
             //Console.WriteLine("Enter a Passenger Id: ");
             //string input = Console.ReadLine();
@@ -29,8 +65,8 @@ namespace AirlineProject.ConsoleApp
             //    }
             //}
 
-            int id = 2;
-            Console.WriteLine(dao.GetPassenger(id));
+            //int id = 2;
+            //Console.WriteLine(dao.GetPassenger(id));
 
 
 
